@@ -37,13 +37,12 @@ func main() {
 
 	for _, f := range dirs {
 		if f.IsDir() {
-			fmt.Printf("- %s\n", f.Name())
 			var p = filepath.Join(path, f.Name())
 			size, err := DirSize(p)
 			if err != nil {
 				fmt.Println(err.Error())
 			}
-			// fmt.Printf("%20s : %v\n", f.Name(), size)
+			fmt.Printf("- %s : %d\n", f.Name(), size)
 			sl := []string{f.Name(), strconv.FormatInt(size, 10)}
 			data = append(data, sl)
 		}
@@ -53,12 +52,12 @@ func main() {
 	if err != nil {
 		log.Fatal(err.Error())
 	}
-	fn := "dir-" + filepath.Base(path) + "_" + time.Now().Format("2006-01-02-150405") + ".csv"
+	fn := "du-" + filepath.Base(path) + "_" + time.Now().Format("2006-01-02-150405") + ".csv"
 	fp := filepath.Join(hd, "Downloads", fn)
 
-	if err != nil {
-		log.Fatal(err.Error())
-	}
+	// if err != nil {
+	// 	log.Fatal(err.Error())
+	// }
 
 	f, err := os.Create(fp)
 	if err != nil {
@@ -73,8 +72,13 @@ func main() {
 	if err := w.Error(); err != nil {
 		log.Fatal(err)
 	}
-
-	fmt.Println("完了しました")
+	fmt.Print("\n\n")
+	fmt.Println("-- 完了しました --")
+	fmt.Print("\n")
+	fmt.Println("-- ダウンロードフォルダにCSVファイルを保存しました --")
+	fmt.Print("\n")
+	fmt.Printf("        %s\n\n", fn)
+	fmt.Println("-- なにかキーを押して終了してください --")
 	scanner2 := bufio.NewScanner(os.Stdin)
 	scanner2.Scan()
 }
