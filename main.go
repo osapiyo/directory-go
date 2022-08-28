@@ -9,19 +9,22 @@ import (
 	"os"
 	"path/filepath"
 	"strconv"
-	"strings"
 	"time"
 
+	"github.com/ncruces/zenity"
 	"golang.org/x/text/encoding/japanese"
 	"golang.org/x/text/transform"
 )
 
 func main() {
-	fmt.Println("パスを入力してください")
-	scanner := bufio.NewScanner(os.Stdin)
-	scanner.Scan()
-	var str = scanner.Text()
-	path := strings.Trim(str, "\"")
+	// fmt.Println("パスを入力してください")
+	// scanner := bufio.NewScanner(os.Stdin)
+	// scanner.Scan()
+	// var str = scanner.Text()
+	// path := strings.Trim(str, "\"")
+
+	const defaultPath = ``
+	path, err := zenity.SelectFile(zenity.Filename(defaultPath), zenity.Directory())
 
 	fmt.Println(path)
 
